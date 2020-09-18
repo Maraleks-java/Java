@@ -13,6 +13,7 @@ public class Calculator {
         final String EXCEPTION_AND_ATTEMPTS = "You didn't enter a number. Try again! Attempts: ";
         final String PROMPT_TO_ENTER = "Enter the number. To exit - enter \"" + STOP_COMMAND + "\"";
         final String DIVISION_BY_ZERO = "You cannot divide by zero! Attempts: ";
+        final String INCORRECT_COMMAND = "You entered the wrong command! Attempts: ";
         byte inputСounter = 1;
         String input = "";
         double first = 0;
@@ -63,7 +64,7 @@ public class Calculator {
                                 break;
                             default:
                                 attempts--;
-                                System.out.println("You entered the wrong command! Attempts: " + attempts);
+                                System.out.println(INCORRECT_COMMAND + attempts);
                         }
                     }
                 } catch (NumberFormatException e) {
