@@ -3,93 +3,81 @@ package Tasks.taks1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Socket;
 
 public class Calculator {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        final String STOP_COMMAND = "stop";
-        final String EXCEPTION_AND_ATTEMPTS = "You didn't enter a number. Try again! Attempts: ";
-        final String PROMPT_TO_ENTER = "Enter the number. To exit - enter \"" + STOP_COMMAND + "\"";
-        final String PROMPT_TO_COMMAND = "Enter the command [+ , -, *, /]. To exit - enter \"" + STOP_COMMAND + "\"";
-        final String DIVISION_BY_ZERO = "You cannot divide by zero! Attempts: ";
-        final String INCORRECT_COMMAND = "You entered the wrong command! Attempts: ";
-        byte inputСounter = 1;
-        String input = "";
-        double first = 0;
-        double second = 0;
-        boolean flag = true;
-        char command = 'd';
 
-
-        while (flag) {
+        boolean powerButton = true;
+        while (powerButton){
             byte attempts = 3;
+            String input;
+            double firstNumber = 0;
+            double secondNumber = 0;
+            char mathematicalProcessing = 'd';
+            byte stage = 1;
             while (attempts > 0) {
-                if(inputСounter == 2) {
-                    System.out.println(PROMPT_TO_COMMAND);
-                    input = reader.readLine();
-                } else if (inputСounter < 4) {
-                    System.out.println(PROMPT_TO_ENTER);
-                    input = reader.readLine();
-                }
-                if (input.equalsIgnoreCase(STOP_COMMAND)) {
-                    flag = false;
+                if(attempts == 0) {
                     break;
                 }
                 try {
-                    if (inputСounter == 1) {
-                        first = Double.parseDouble(input);
-                        inputСounter++;
-                        break;
+
+                    if(stage == 1 || stage == 3) {
+                        System.out.println("Enter the number. To exit - enter \"stop\"");
+                        input = reader.readLine();
+                        if(input.equalsIgnoreCase("stop")){
+                            powerButton = false;
+                            break;
+                        }
+                        if(stage == 1) {
+                            firstNumber = Double.parseDouble(input);
+                        }
+                        if(stage == 3) {
+                            secondNumber = Double.parseDouble(input);
+                        }
+                        stage++;
                     }
 
-                    if(inputСounter == 2 || inputСounter == 4){
-
-                        if(inputСounter == 2){
-                            command = input.charAt(0);
-                            inputСounter++;
-                            break;
-                        } else {
-                            switch (command) {
-                                case '+':
-                                    System.out.println(first + second);
-                                    inputСounter = 1;
-                                    break;
-                                case '-':
-                                    System.out.println(first - second);
-                                    inputСounter = 1;
-                                    break;
-                                case '*':
-                                    System.out.println(first * second);
-                                    inputСounter = 1;
-                                    break;
-                                case '/':
-                                    if (second == 0) {
-                                        attempts--;
-                                        System.out.println(DIVISION_BY_ZERO + attempts);
-                                        inputСounter = 1;
-                                        break;
-                                    }
-                                    System.out.println(first / second);
-                                    break;
-                                default:
-                                    attempts--;
-                                    System.out.println(INCORRECT_COMMAND + attempts);
+                    if(stage == 2) {
+                        System.out.println( "Enter the command [+ , -, *, /]");
+                        input = reader.readLine();
+                        char[] commands = {'+', '-', '*', '/' };
+                        for (int i = 0; i < commands.length; i++) {
+                            if(commands[i] == input.charAt(0)) {
+                                mathematicalProcessing = commands[i];
+                                stage++;
+                                break;
                             }
                         }
-
+                        if(mathematicalProcessing == 'd') {
+                            attempts--;
+                            System.out.println( "You entered the wrong command! Attempts: " + attempts);
+                        }
                     }
 
-                    if (inputСounter == 3) {
-                        second = Double.parseDouble(input);
-                        inputСounter++;
-                        break;
+                    if(stage > 3) {
+                        if(mathematicalProcessing == '+') {
+                            System.out.println(firstNumber + secondNumber);
+                            break;
+                        }
+                        if(mathematicalProcessing == '-') {
+                            System.out.println(firstNumber - secondNumber);
+                            break;
+                        }
+                        if(mathematicalProcessing == '*') {
+                            System.out.println(firstNumber * secondNumber);
+                            break;
+                        }
+                        if(mathematicalProcessing == '/') {
+                            System.out.println(firstNumber / secondNumber);
+                            break;
+                        }
                     }
 
                 } catch (NumberFormatException e) {
                     attempts--;
-                    System.out.println(EXCEPTION_AND_ATTEMPTS + attempts);
+                    System.out.println("You didn't enter a number. Try again! Attempts: " + attempts);
                 }
             }
         }
