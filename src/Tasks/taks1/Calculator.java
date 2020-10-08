@@ -54,23 +54,22 @@ public class Calculator {
                         }
                     }
 
-                    if(stage > 3) {
-                        if(userCommand == '+') {
-                            System.out.println(firstNumber + secondNumber);
-                            break;
+                    if(stage == 4) {
+                        switch (userCommand) {
+                            case '+':
+                                System.out.println(firstNumber + secondNumber);
+                                break;
+                            case '-':
+                                System.out.println(firstNumber - secondNumber);
+                                break;
+                            case '*':
+                                System.out.println(firstNumber * secondNumber);
+                                break;
+                            case '/':
+                                System.out.println(firstNumber / secondNumber);
+                                break;
                         }
-                        if(userCommand == '-') {
-                            System.out.println(firstNumber - secondNumber);
-                            break;
-                        }
-                        if(userCommand == '*') {
-                            System.out.println(firstNumber * secondNumber);
-                            break;
-                        }
-                        if(userCommand == '/') {
-                            System.out.println(firstNumber / secondNumber);
-                            break;
-                        }
+                        break;
                     }
 
                 } catch (NumberFormatException e) {
