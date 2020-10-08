@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Calculator {
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        boolean powerButton = true;
-        while (powerButton){
+        boolean processingIsAvailable = true;
+        while (processingIsAvailable){
             byte attempts = 3;
             String input;
             double firstNumber = 0;
@@ -18,16 +19,13 @@ public class Calculator {
             char mathematicalProcessing = 'd';
             byte stage = 1;
             while (attempts > 0) {
-                if(attempts == 0) {
-                    break;
-                }
                 try {
 
                     if(stage == 1 || stage == 3) {
                         System.out.println("Enter the number. To exit - enter \"stop\"");
                         input = reader.readLine();
                         if(input.equalsIgnoreCase("stop")){
-                            powerButton = false;
+                            processingIsAvailable = false;
                             break;
                         }
                         if(stage == 1) {
