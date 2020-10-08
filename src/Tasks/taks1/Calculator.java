@@ -6,6 +6,15 @@ import java.io.InputStreamReader;
 
 public class Calculator {
 
+    public static boolean checkMathCommand(char command) {
+        char[] commands = {'+', '-', '*', '/' };
+        for(int i = 0; i < commands.length; i++) {
+            if(command == commands[i])
+                return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -16,7 +25,7 @@ public class Calculator {
             String input;
             double firstNumber = 0;
             double secondNumber = 0;
-            char userCommand = 'd';
+            int userCommand = 0;
             byte stage = 1;
             while (attempts > 0) {
                 try {
@@ -39,11 +48,10 @@ public class Calculator {
 
                     if(stage == 2) {
                         System.out.println( "Enter the command [+ , -, *, /]");
-                        input = reader.readLine();
+                        userCommand = reader.read();
                         char[] commands = {'+', '-', '*', '/' };
                         for (int i = 0; i < commands.length; i++) {
-                            if(commands[i] == input.charAt(0)) {
-                                userCommand = commands[i];
+                            if(commands[i] == userCommand) {
                                 stage++;
                                 break;
                             }
