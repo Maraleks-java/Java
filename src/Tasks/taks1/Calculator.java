@@ -16,7 +16,7 @@ public class Calculator {
             String input;
             double firstNumber = 0;
             double secondNumber = 0;
-            char mathematicalProcessing = 'd';
+            char userCommand = 'd';
             byte stage = 1;
             while (attempts > 0) {
                 try {
@@ -43,31 +43,31 @@ public class Calculator {
                         char[] commands = {'+', '-', '*', '/' };
                         for (int i = 0; i < commands.length; i++) {
                             if(commands[i] == input.charAt(0)) {
-                                mathematicalProcessing = commands[i];
+                                userCommand = commands[i];
                                 stage++;
                                 break;
                             }
                         }
-                        if(mathematicalProcessing == 'd') {
+                        if(userCommand == 'd') {
                             attempts--;
                             System.out.println( "You entered the wrong command! Attempts: " + attempts);
                         }
                     }
 
                     if(stage > 3) {
-                        if(mathematicalProcessing == '+') {
+                        if(userCommand == '+') {
                             System.out.println(firstNumber + secondNumber);
                             break;
                         }
-                        if(mathematicalProcessing == '-') {
+                        if(userCommand == '-') {
                             System.out.println(firstNumber - secondNumber);
                             break;
                         }
-                        if(mathematicalProcessing == '*') {
+                        if(userCommand == '*') {
                             System.out.println(firstNumber * secondNumber);
                             break;
                         }
-                        if(mathematicalProcessing == '/') {
+                        if(userCommand == '/') {
                             System.out.println(firstNumber / secondNumber);
                             break;
                         }
